@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Главная</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="page-wrapper">
+    <header class="page-header" id="header">
+      <div class="page-header__row">
+        <div class="lang-switch">
+          <input class="lang-switch__item" type="button" value="En">
+          <input class="lang-switch__item lang-switch__item--active" type="button" value="Ru">
+        </div>
+        <img src="img/header-logo.png" alt="Лого" width="104" height="104"> 
+        <nav class="menu">
+          <a class="menu__item" href="#">Заявка</a>
+          <a class="menu__item" href="#">Условия</a>
+          <a class="menu__item" href="#">Жюри</a>
+          <a class="menu__item" href="#">Контакты</a>        
+        </nav>
+        
+      </div>
+      <div class="page-header__title">
+        <h1 class="page-header__title-text">Современная кириллица 2014</h1>
+        <h2 class="page-header__title-text">Международный конкурс шрифтового дизайна</h2>
+      </div>      
+    </header>
+    <main class="main-content">
+      <img class="main-content__title" src="img/order.png" width="547" height="97">
+      <div class="steps">
+        <div class="steps__item">Как составить и оформить проект <span>&#8594</span></div>             
+        <div class="steps__item steps__item--active">Загрузка проекта<span>&#8594</span></div>        
+        <div class="steps__item">Характеристики проекта</div>
+      </div>
+      <div class="upload-files">
+        <div class="upload-files__file-types">
+          <img src="img/pdf.png" alt="Pdf" width="38" height="52">
+          <img src="img/tiff.png" alt="Tiff" width="38" height="52">
+          <img src="img/jpg.png" alt="Jpg" width="38" height="52">
+        </div>
+        <span>Перетащите проект в эту область или</span>
+        <label for="file-upload" class="upload-files__link">
+        выберите файл
+        </label>
+        <input id="file-upload" type="file"/>
+      </div>
+
+      <form class="order-form" action="/echo" method="post">
+        <div class="order-form__title">Представьтесь, пожалуйста</div>
+        <div class="order-form__group">
+          <label class="order-form__label" for="fio">Фамилия, имя и отчество</label>
+          <input class="order-form__text" type="text" id="fio" required onchange="validateField(this)" pattern="^[а-яА-ЯёЁa-zA-Z]+$">
+        </div>
+        <div class="order-form__group">
+          <label class="order-form__label" for="company-name">Название компании</label>
+          <input class="order-form__text" type="text" id="company-name" pattern="^[а-яА-ЯёЁa-zA-Z]+$">  
+          <span class="order-form__label-hint">Заполните, если вы представляете компанию-производителя шрифта</span>
+        </div>
+        <div class="order-form__group">
+          <label class="order-form__label">Контактная информация</label>
+          <div class="order-form__group-inner">
+            <input class="order-form__text" type="text" placeholder="Ваш город" id="city" required onchange="validateField(this)" pattern="^[а-яА-ЯёЁa-zA-Z]+$">
+            <div class="order-form__select" id="country-list" onclick="showCountry()">
+              <span id="defaultchoice">Страна</span>
+              <ul class="order-form__select-list">               
+                <li class="order-form__select-item" onclick="chooseCountry(this)" name="country">Россия</li>
+                <li class="order-form__select-item" onclick="chooseCountry(this)" name="country">Беларусь</li>
+                <li class="order-form__select-item" onclick="chooseCountry(this)" name="country">Казахстан</li>              
+              </ul>
+              <select name="countries" required>
+                <option value="default">Страна</option>
+                <option value="russia">Россия</option>
+                <option value="belarus">Беларусь</option>
+                <option value="kazakhstan">Казахстан</option>
+                <option value="ukraine">Украина</option>
+              </select>
+            </div>
+            <input class="order-form__text" type="text" placeholder="Индекс" id="zipcode" required onchange="validateField(this)">
+            <input class="order-form__text" type="text" placeholder="Почтовый адрес" id="address" required onchange="validateField(this)" pattern="^[а-яА-ЯёЁa-zA-Z]+$">
+            <input class="order-form__text" type="text" placeholder="Телефон" id="phone" required onchange="validateField(this)">
+            <input class="order-form__text" type="email" placeholder="Электронная почта" id="email" required onchange="validateField(this)" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+          </div>
+        </div>
+        <div class="order-form__footer">
+          <input class="order-form__btn" type="submit" value="Далее &#8594" id="next" disabled>
+          <div class="order-form__fields-list">
+            <p class="order-form__fields-title" id="hint">Осталось заполнить поля:</p>
+            <a href="#fio" id="f-fio">ФИО</a>            
+            <a href="#city" id="f-city">Ваш город</a>
+            <a href="#country-list" id="f-country">Страна</a>
+            <a href="#zipcode" id="f-zipcode">Индекс</a>
+            <a href="#address" id="f-address">Почтовый адрес</a>
+            <a href="#phone" id="f-phone">Телефон</a>
+            <a href="#email" id="f-email">Электронная почта </a>
+          </div>
+        </div>
+        
+      </form>
+    </main>
+    <footer class="page-footer">
+     <form class="subscribe-form" action="echo" method="post">
+       <input class="subscribe-form__text" type="text" placeholder="Быть в курсе событий">
+       <input class="subscribe-form__btn" type="submit" value="OK">
+     </form>
+     <p class="page-footer__additional-info">
+       Организаторы конкурса: компания <a href=# class="page-footer__highlight">«Паратайп»</a> и журнал <a href="#" class="page-footer__highlight">«Шрифт»</span>
+        при поддержке <a href="#" class="page-footer__highlight">Федерального агентства по печати и массовым 
+        коммуникациям</a> и компании <a href="https://yandex.ru" class="page-footer__highlight">«Яндекс»</a>
+     </p>
+    </footer>   
+  </div>  
+  <script src="js/script.js"></script>
+  
+</body>
+</html>
